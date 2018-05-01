@@ -1,4 +1,4 @@
-package info.androidhive.glide.activity;
+package task.activity;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -18,7 +18,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.ArrayList;
 
 import info.androidhive.glide.R;
-import info.androidhive.glide.model.Image;
+import task.model.Image;
 
 
 public class SlideshowDialogFragment extends DialogFragment {

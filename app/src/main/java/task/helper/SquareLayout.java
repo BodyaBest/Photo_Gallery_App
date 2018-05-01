@@ -1,4 +1,4 @@
-package info.androidhive.glide.helper;
+package task.helper;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -28,7 +28,6 @@ class SquareLayout extends RelativeLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        // Set a square layout.
         super.onMeasure(widthMeasureSpec, widthMeasureSpec);
     }
 

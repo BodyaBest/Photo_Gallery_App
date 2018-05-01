@@ -1,4 +1,4 @@
-package info.androidhive.glide.model;
+package task.model;
 
 import java.io.Serializable;
 
@@ -7,8 +7,7 @@ public class Image implements Serializable {
     private String picture;
     private String name;
 
-    public Image() {
-    }
+    public Image() {}
 
     public String getName() {
         return name;

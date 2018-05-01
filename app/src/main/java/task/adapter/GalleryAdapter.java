@@ -1,4 +1,4 @@
-package info.androidhive.glide.adapter;
+package task.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +15,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.List;
 
 import info.androidhive.glide.R;
-import info.androidhive.glide.model.Image;
+import task.model.Image;
 
 
 

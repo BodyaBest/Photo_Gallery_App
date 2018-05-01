@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<info.androidhive.glide.helper.SquareLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<task.helper.SquareLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <ImageView
+        android:padding="3dp"
         android:id="@+id/thumbnail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop" />
-</info.androidhive.glide.helper.SquareLayout>
+</task.helper.SquareLayout>
