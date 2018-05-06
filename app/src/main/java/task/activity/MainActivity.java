@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     private String TAG = MainActivity.class.getSimpleName();
     private static final String endpoint = "https://cloud-api.yandex.net:443/v1/disk/public/resources?public_key=https%3A%2F%2Fyadi.sk%2Fd%2FmNDUKgbv3UsXcM&fields=image&limit=100000&preview_crop=false";
     private ArrayList<Image> images;
-    protected ProgressDialog pDialog;
     private GalleryAdapter mAdapter;
     private RecyclerView recyclerView;
 
@@ -49,9 +48,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Downloading");
-        pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
         images = new ArrayList<>();
         mAdapter = new GalleryAdapter(getApplicationContext(), images);
@@ -79,12 +75,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }));
-
         if (isOnline()) {
-            pDialog.show();
             new ParseTask().execute();
-            pDialog.dismiss();
-        } else Toast.makeText(getApplicationContext(), "No connection", Toast.LENGTH_LONG).show();
+        } else Toast.makeText(getApplicationContext(), R.string.fail_connection, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -101,11 +94,9 @@ public class MainActivity extends AppCompatActivity {
         switch (id) {
             case R.id.update_menu:
                 if (isOnline()) {
-                    pDialog.show();
                     new ParseTask().execute();
-                    pDialog.dismiss();
                 } else
-                    Toast.makeText(getApplicationContext(), "No connection", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.fail_connection, Toast.LENGTH_LONG).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -120,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(Void... params) {
-            //pDialog.show();
             try {
                 URL url = new URL(endpoint);
 
@@ -141,10 +131,9 @@ public class MainActivity extends AppCompatActivity {
                 jsonResult = builder.toString();
 
             } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), "Photos weren't found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.not_found, Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
-            //pDialog.hide();
             return jsonResult;
         }
 
@@ -152,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String json) {
             super.onPostExecute(json);
             JSONObject dataJsonObject;
-            //pDialog.show();
             try {
                 dataJsonObject = new JSONObject(json);
                 JSONObject trans = dataJsonObject.getJSONObject("_embedded");
@@ -168,14 +156,20 @@ public class MainActivity extends AppCompatActivity {
 
             } catch (JSONException e) {
                 e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "Photos weren't found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.not_found, Toast.LENGTH_SHORT).show();
             }
             mAdapter.notifyDataSetChanged();
-            //pDialog.hide();
         }
     }
 
     public boolean isOnline() {
+
+        /**
+         *Function check connection with Internet
+         * Output data: true - succeed connection
+         *              false - fail connection
+         **/
+
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo nInfo = cm.getActiveNetworkInfo();
         if (nInfo != null && nInfo.isConnected()) {
